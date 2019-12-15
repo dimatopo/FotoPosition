@@ -1,0 +1,13 @@
+D:\Projects\FotoPosition\FotoPosition\bin\Debug\FotoPosition.exe.config
+D:\Projects\FotoPosition\FotoPosition\bin\Debug\FotoPosition.exe
+D:\Projects\FotoPosition\FotoPosition\bin\Debug\FotoPosition.pdb
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csprojResolveAssemblyReference.cache
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.Form1.resources
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.Properties.Resources.resources
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csproj.GenerateResource.Cache
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.exe
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.pdb
+D:\Projects\FotoPosition\FotoPosition\bin\Debug\MetadataExtractor.dll
+D:\Projects\FotoPosition\FotoPosition\bin\Debug\XmpCore.dll
+D:\Projects\FotoPosition\FotoPosition\bin\Debug\MetadataExtractor.xml
+D:\Projects\FotoPosition\FotoPosition\bin\Debug\XmpCore.xml
