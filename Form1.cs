@@ -38,121 +38,77 @@ namespace FotoPosition
             ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
             ofd.Title = "Выберите файлы изображений";
 
-            //создаю список для хранения данных из фотографий формата Bmp
-            List<Bitmap> listBmpFoto = new List<Bitmap>();
-
+ 
             // создаю список из путей к фото
-            List<string> PathFoto = new List<string>();
-
-
-            //создаю экземпляр класса Foto
-            //Foto foto = new Foto()
+            List<string> ListPathFoto = new List<string>();
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 dataGridView1.Rows.Clear(); // почистим список
 
-                double d = GetLatitude(ofd.FileName.ToString());
+                // пути файлов в список PathFoto
                 foreach (string f in ofd.FileNames)
                 {
-                    PathFoto.Add(f);
+                    ListPathFoto.Add(f);
                 }
 
-                // добавляю нужное количество строк
-                dataGridView1.Rows.Add(PathFoto.Count-1);
-
-                // dataGridView1[ int.Parse(f.Count), 0].Value = Image.FromFile(ofd.FileName.ToString());
-                //for (int i = 0; i < ofd.FileNames.Length; i++)
-                //{
-                //    dataGridView1.Rows.Add(Image.FromFile(ofd.FileNames[i].ToString()));
-                //dataGridView1.Rows[i].Cells[1].Value = ofd.FileName[i].ToString();
-                // }
-
-
-                foreach (var onePhotoFile in PathFoto)
-                {
-                    var location = ExtractorLocation.ExtractLocation(onePhotoFile);
-
-                }
-
-
+                
                 // заполняю DataGrid
-                for (int i = 0; i < PathFoto.Count; i++)
+                for (int i = 0; i < ListPathFoto.Count; i++)
                 {
-                 
-                    
-                    
-                    //StreamWriter sw = new StreamWriter()
-                    //Image img;
-                   // listBmpFoto.Add(img.Save(PathFoto[i].ToString(), System.Drawing.Imaging.ImageFormat.Bmp);
+                    dataGridView1.Rows.Add();
+                    dataGridView1.RowTemplate.Height = 100;
 
-                   // dataGridView1.Rows[i].Cells[0].Value =
+                    var img = new Bitmap(ListPathFoto[i].ToString());
+
+                    dataGridView1.Rows[i].Cells[0].Value = img;
+                    //col_Picture.Image = Image.FromFile();
                     
-
-
                     //заполняю второй столбец именем файла
-                    dataGridView1.Rows[i].Cells[1].Value = Path.GetFileName(PathFoto[i].ToString());
+                    dataGridView1.Rows[i].Cells[1].Value = Path.GetFileName(ListPathFoto[i].ToString());
+                }
 
+                //var folderName = ofd.FileName.ToString();
+                /* var photoFiles = Directory.GetFiles(folderName);
+                 foreach (var onePhotoFile in photoFiles)
+                 {
+                     // вариант №1 из https://gist.github.com/5342/3293802
+                     // - чувак за пивом написал, я чуть классами обернул,чтобы было удобно пользоваться
+                     var location = ExtractorLocation.ExtractLocation(onePhotoFile);
+                     Console.WriteLine($"{onePhotoFile} - {location}");
 
-
+                 }
+                 */
             }
+        }
 
-            //var folderName = ofd.FileName.ToString();
-            /* var photoFiles = Directory.GetFiles(folderName);
-             foreach (var onePhotoFile in photoFiles)
-             {
-                 // вариант №1 из https://gist.github.com/5342/3293802
-                 // - чувак за пивом написал, я чуть классами обернул,чтобы было удобно пользоваться
-                 var location = ExtractorLocation.ExtractLocation(onePhotoFile);
-                 Console.WriteLine($"{onePhotoFile} - {location}");
+        private double GetLatitude(string path)
+        {
+            double latitude;
+            return 0;// latitude;
+        }
 
-             }
-             */
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // высота строк
+            dataGridView1.RowTemplate.Height = 100;
         }
     }
 
-    private double GetLatitude(string path)
+    /*class Bitmap
     {
-        double latitude;
-        /*
-        FileStream Foto = File.Open(path, FileMode.Open, FileAccess.Read); // открыли файл по адресу s для чтения
-        //FileAttributes attributes = File.GetAttributes(path);
-
-        //"распаковали" снимок и создали объект decoder
-        BitmapDecoder decoder = JpegBitmapDecoder.Create(Foto, BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.Default);
-
-        //считали и сохранили метаданные
-        BitmapMetadata TmpImgEXIF = (BitmapMetadata)decoder.Frames[0].Metadata.Clone();
-
-        //TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=1}", "N");
-
-        //TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=3}", "E");
-        var loc = TmpImgEXIF.Location;
-
-        //var lon = (BitmapMetadata)decoder.Frames[0].Metadata.ToString();
-
-*/
-
-        return 0;// latitude; 
-
+        //public Image image;
+        public double lat;
+        public double lon;
+        public string fileName;
+        public Bitmap(double latitude, double longitude, string fName)
+        {
+            //image = img;
+            lat = latitude;
+            lon = longitude;
+            fileName = fName;
+        }
     }
-
-}
-
-class Bitmap
-{
-    //public Image image;
-    public double lat;
-    public double lon;
-    public string fileName;
-    public Bitmap(double latitude, double longitude, string fName)
-    {
-        //image = img;
-        lat = latitude;
-        lon = longitude;
-        fileName = fName;
-    }
-}
-
+    */
 }
 
