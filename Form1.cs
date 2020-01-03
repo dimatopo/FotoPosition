@@ -11,7 +11,8 @@ using System.IO;
 using System.Globalization;
 using System.Windows.Media.Imaging;
 using FotoPosition.Data;
-
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
 
 
 namespace FotoPosition
@@ -23,6 +24,8 @@ namespace FotoPosition
             InitializeComponent();
         }
 
+        // создаю список из путей к фото
+        List<string> ListPathFoto = new List<string>();
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -38,9 +41,8 @@ namespace FotoPosition
             ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
             ofd.Title = "Выберите файлы изображений";
 
- 
-            // создаю список из путей к фото
-            List<string> ListPathFoto = new List<string>();
+
+            
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -52,7 +54,7 @@ namespace FotoPosition
                     ListPathFoto.Add(f);
                 }
 
-                
+
                 // заполняю DataGrid
                 for (int i = 0; i < ListPathFoto.Count; i++)
                 {
@@ -63,22 +65,30 @@ namespace FotoPosition
 
                     dataGridView1.Rows[i].Cells[0].Value = img;
                     //col_Picture.Image = Image.FromFile();
-                    
+
                     //заполняю второй столбец именем файла
                     dataGridView1.Rows[i].Cells[1].Value = Path.GetFileName(ListPathFoto[i].ToString());
+
                 }
 
-                //var folderName = ofd.FileName.ToString();
-                /* var photoFiles = Directory.GetFiles(folderName);
-                 foreach (var onePhotoFile in photoFiles)
-                 {
-                     // вариант №1 из https://gist.github.com/5342/3293802
-                     // - чувак за пивом написал, я чуть классами обернул,чтобы было удобно пользоваться
-                     var location = ExtractorLocation.ExtractLocation(onePhotoFile);
-                     Console.WriteLine($"{onePhotoFile} - {location}");
 
-                 }
-                 */
+                /* var gps = ImageMetadataReader.ReadMetadata(ListPathFoto[1])
+                              .OfType<GpsDirectory>()
+                              .FirstOrDefault();
+                 var locationMeta = gps.GetGeoLocation();
+                 MessageBox.Show(locationMeta.ToString());*/
+
+                var folderName = ofd.FileName.ToString();
+                var photoFiles = System.IO.Directory.GetFiles(Path.GetDirectoryName(folderName));
+                foreach (var onePhotoFile in photoFiles)
+                {
+                    // вариант №1 из https://gist.github.com/5342/3293802
+                    // - чувак за пивом написал, я чуть классами обернул,чтобы было удобно пользоваться
+                    var location = ExtractorLocation.ExtractLocation(onePhotoFile);
+                    Console.WriteLine($"{onePhotoFile} - {location}");
+                    Console.WriteLine();
+                }
+
             }
         }
 
@@ -90,9 +100,28 @@ namespace FotoPosition
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // высота строк
+            // высота строк датаГрида
             dataGridView1.RowTemplate.Height = 100;
+
+            // внизу, в тулсрипе....
+            toolStripStatusLabel1.Text = "Широта 0, Долгота 0";
         }
+
+        private void dataGridView1_Click(object sender, EventArgs e)
+        {
+            // узнаю индекс выделенной строки
+            // если выделено несколько строк, то дает индекс последней выделенной строки
+            var ind = dataGridView1.CurrentRow.Index;
+            GetLocationInToolstrip(ind);
+        }
+
+        // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
+        private void GetLocationInToolstrip(int i)
+        {
+            var location = ExtractorLocation.ExtractLocation(ListPathFoto[i]);
+            toolStripStatusLabel1.Text = location.ToString();
+        }
+
     }
 
     /*class Bitmap
