@@ -42,7 +42,7 @@ namespace FotoPosition
             ofd.Title = "Выберите файлы изображений";
 
 
-            
+
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -62,35 +62,12 @@ namespace FotoPosition
                     var indexLastRow = dataGridView1.RowCount - 1;
                     dataGridView1.RowTemplate.Height = 100;
 
-                    using (var img = new Bitmap(oneFilePath))
-                    {
-                        dataGridView1.Rows[indexLastRow].Cells[0].Value = img;
-                    }
-                    //col_Picture.Image = Image.FromFile();
-
-                    //заполняю второй столбец именем файла
+                    var img = new Bitmap(oneFilePath);
+                    dataGridView1.Rows[indexLastRow].Cells[0].Value = img;
                     dataGridView1.Rows[indexLastRow].Cells[1].Value = Path.GetFileName(oneFilePath);
-
                 }
 
 
-                /* var gps = ImageMetadataReader.ReadMetadata(ListPathFoto[1])
-                              .OfType<GpsDirectory>()
-                              .FirstOrDefault();
-                 var locationMeta = gps.GetGeoLocation();
-                 MessageBox.Show(locationMeta.ToString());
-
-                var folderName = ofd.FileName.ToString();
-                var photoFiles = System.IO.Directory.GetFiles(Path.GetDirectoryName(folderName));
-                foreach (var onePhotoFile in photoFiles)
-                {
-                    // вариант №1 из https://gist.github.com/5342/3293802
-                    // - чувак за пивом написал, я чуть классами обернул,чтобы было удобно пользоваться
-                    var location = ExtractorLocation.ExtractLocation(onePhotoFile);
-                    Console.WriteLine($"{onePhotoFile} - {location}");
-                    Console.WriteLine();
-                }
-*/
             }
         }
 
@@ -114,13 +91,13 @@ namespace FotoPosition
             // узнаю индекс выделенной строки
             // если выделено несколько строк, то дает индекс последней выделенной строки
             var ind = dataGridView1.CurrentRow.Index;
-            GetLocationInToolstrip(ind);
+            ShowLocationFromImgFile(ListPathFoto[ind]);
         }
 
         // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
-        private void GetLocationInToolstrip(int i)
+        private void ShowLocationFromImgFile(string imgFilePath)
         {
-            var location = ExtractorLocation.ExtractLocation(ListPathFoto[i]);
+            var location = ExtractorLocation.ExtractLocation(imgFilePath);
             toolStripStatusLabel1.Text = location.ToString();
         }
 
