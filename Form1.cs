@@ -56,18 +56,20 @@ namespace FotoPosition
 
 
                 // заполняю DataGrid
-                for (int i = 0; i < ListPathFoto.Count; i++)
+                foreach (var oneFilePath in ListPathFoto)
                 {
                     dataGridView1.Rows.Add();
+                    var indexLastRow = dataGridView1.RowCount - 1;
                     dataGridView1.RowTemplate.Height = 100;
 
-                    var img = new Bitmap(ListPathFoto[i].ToString());
-
-                    dataGridView1.Rows[i].Cells[0].Value = img;
+                    using (var img = new Bitmap(oneFilePath))
+                    {
+                        dataGridView1.Rows[indexLastRow].Cells[0].Value = img;
+                    }
                     //col_Picture.Image = Image.FromFile();
 
                     //заполняю второй столбец именем файла
-                    dataGridView1.Rows[i].Cells[1].Value = Path.GetFileName(ListPathFoto[i].ToString());
+                    dataGridView1.Rows[indexLastRow].Cells[1].Value = Path.GetFileName(oneFilePath);
 
                 }
 
