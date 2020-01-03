@@ -76,7 +76,7 @@ namespace FotoPosition
                               .OfType<GpsDirectory>()
                               .FirstOrDefault();
                  var locationMeta = gps.GetGeoLocation();
-                 MessageBox.Show(locationMeta.ToString());*/
+                 MessageBox.Show(locationMeta.ToString());
 
                 var folderName = ofd.FileName.ToString();
                 var photoFiles = System.IO.Directory.GetFiles(Path.GetDirectoryName(folderName));
@@ -88,7 +88,7 @@ namespace FotoPosition
                     Console.WriteLine($"{onePhotoFile} - {location}");
                     Console.WriteLine();
                 }
-
+*/
             }
         }
 
@@ -104,7 +104,7 @@ namespace FotoPosition
             dataGridView1.RowTemplate.Height = 100;
 
             // внизу, в тулсрипе....
-            toolStripStatusLabel1.Text = "Широта 0, Долгота 0";
+            toolStripStatusLabel1.Text = "";
         }
 
         private void dataGridView1_Click(object sender, EventArgs e)
