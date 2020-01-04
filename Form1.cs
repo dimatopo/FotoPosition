@@ -23,13 +23,41 @@ namespace FotoPosition
         {
             InitializeComponent();
         }
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
+            ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
+            ofd.Title = "Выберите файлы изображений";
 
-        // создаю список из путей к фото
-        List<string> ListPathFoto = new List<string>();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+        }
+
+
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // внизу, в тулсрипе....
+            toolStripStatusLabel1.Text = "";
+        }
+        // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
+        private void ShowLocationFromImgFile(string imgFilePath)
+        {
+            var location = ExtractorLocation.ExtractLocation(imgFilePath);
+            toolStripStatusLabel1.Text = location.ToString();
+        }
+
+        #region
+        /*
+        // создаю список из путей к фото
+        List<string> ListPathFoto = new List<string>();
+       
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -71,14 +99,7 @@ namespace FotoPosition
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // высота строк датаГрида
-            dataGridView1.RowTemplate.Height = 100;
-
-            // внизу, в тулсрипе....
-            toolStripStatusLabel1.Text = "";
-        }
+       
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
@@ -87,13 +108,10 @@ namespace FotoPosition
             var ind = dataGridView1.CurrentRow.Index;
             ShowLocationFromImgFile(ListPathFoto[ind]);
         }
+        */
+        #endregion
 
-        // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
-        private void ShowLocationFromImgFile(string imgFilePath)
-        {
-            var location = ExtractorLocation.ExtractLocation(imgFilePath);
-            toolStripStatusLabel1.Text = location.ToString();
-        }
+
 
     }
 }
