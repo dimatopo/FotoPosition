@@ -53,7 +53,7 @@ namespace FotoPosition
                     ListViewItem item = new ListViewItem();
                     item.ImageIndex = i;
                     listView1.Items.Add(item);
-                    //listView1.Item
+                    listView1.Su
                 }
 
             }
