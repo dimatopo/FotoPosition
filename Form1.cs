@@ -32,6 +32,29 @@ namespace FotoPosition
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                // запихнул все фотки в imageList1
+                foreach (string f in ofd.FileNames)
+                {
+                    try
+                    {
+                        imageList1.Images.Add(Image.FromFile(f));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Что-то пошло не так...!");
+                    }
+                }
+
+                listView1.View = View.LargeIcon;
+                listView1.LargeImageList = imageList1;
+
+                for (int i = 0; i < imageList1.Images.Count; i++)
+                {
+                    ListViewItem item = new ListViewItem();
+                    item.ImageIndex = i;
+                    listView1.Items.Add(item);
+                    //listView1.Item
+                }
 
             }
         }
