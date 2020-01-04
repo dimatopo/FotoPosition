@@ -46,6 +46,7 @@ namespace FotoPosition
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+
                 dataGridView1.Rows.Clear(); // почистим список
 
                 // пути файлов в список PathFoto
@@ -53,7 +54,6 @@ namespace FotoPosition
                 {
                     ListPathFoto.Add(f);
                 }
-
 
                 // заполняю DataGrid
                 foreach (var oneFilePath in ListPathFoto)
@@ -69,12 +69,6 @@ namespace FotoPosition
 
 
             }
-        }
-
-        private double GetLatitude(string path)
-        {
-            double latitude;
-            return 0;// latitude;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -102,21 +96,5 @@ namespace FotoPosition
         }
 
     }
-
-    /*class Bitmap
-    {
-        //public Image image;
-        public double lat;
-        public double lon;
-        public string fileName;
-        public Bitmap(double latitude, double longitude, string fName)
-        {
-            //image = img;
-            lat = latitude;
-            lon = longitude;
-            fileName = fName;
-        }
-    }
-    */
 }
 
