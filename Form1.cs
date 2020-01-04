@@ -23,47 +23,8 @@ namespace FotoPosition
         {
             InitializeComponent();
         }
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Multiselect = true;
-            ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
-            ofd.Title = "Выберите файлы изображений";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                // запихнул все фотки в imageList1
-                foreach (string f in ofd.FileNames)
-                {
-                    try
-                    {
-                        imageList1.Images.Add(Image.FromFile(f));
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Что-то пошло не так...!");
-                    }
-                }
-
-                listView1.View = View.LargeIcon;
-                listView1.LargeImageList = imageList1;
-
-                for (int i = 0; i < imageList1.Images.Count; i++)
-                {
-                    ListViewItem item = new ListViewItem();
-                    item.ImageIndex = i;
-                    listView1.Items.Add(item);
-                    listView1.Su
-                }
-
-            }
-        }
-
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        
+       
         private void Form1_Load(object sender, EventArgs e)
         {
             // внизу, в тулсрипе....
@@ -76,6 +37,8 @@ namespace FotoPosition
             toolStripStatusLabel1.Text = location.ToString();
         }
 
+
+
         #region
         /*
         // создаю список из путей к фото
@@ -84,7 +47,7 @@ namespace FotoPosition
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+/*
             OpenFileDialog ofd = new OpenFileDialog();
 
             //дайт возможность выбора более чем одного фала
@@ -132,10 +95,49 @@ namespace FotoPosition
             ShowLocationFromImgFile(ListPathFoto[ind]);
         }
         */
+        //<<<<<<< Updated upstream
         #endregion
 
+        
 
+        private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
+            ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
+            ofd.Title = "Выберите файлы изображений";
 
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                // запихнул все фотки в imageList1
+                foreach (string f in ofd.FileNames)
+                {
+                    try
+                    {
+                        imageList1.Images.Add(Image.FromFile(f));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Что-то пошло не так...!");
+                    }
+                }
+
+                listView1.View = View.LargeIcon;
+                listView1.LargeImageList = imageList1;
+
+                for (int i = 0; i < imageList1.Images.Count; i++)
+                {
+                    ListViewItem item = new ListViewItem();
+                    item.ImageIndex = i;
+                    listView1.Items.Add(item);
+                    //listView1.Su
+                }
+
+            }
+        }
+
+        private void ExitToolStripMenuItem_Click_1(object sender, EventArgs e) => this.Close();
+        
     }
 }
 

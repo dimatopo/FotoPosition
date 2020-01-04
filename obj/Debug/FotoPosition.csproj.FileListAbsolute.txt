@@ -1,7 +1,6 @@
 D:\Projects\FotoPosition\FotoPosition\bin\Debug\FotoPosition.exe.config
 D:\Projects\FotoPosition\FotoPosition\bin\Debug\FotoPosition.exe
 D:\Projects\FotoPosition\FotoPosition\bin\Debug\FotoPosition.pdb
-D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csprojResolveAssemblyReference.cache
 D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.Form1.resources
 D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.Properties.Resources.resources
 D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csproj.GenerateResource.Cache
@@ -26,3 +25,5 @@ F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.csproj.CoreCompileIn
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.csproj.CopyComplete
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.exe
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.pdb
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csprojAssemblyReference.cache
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csproj.CopyComplete
