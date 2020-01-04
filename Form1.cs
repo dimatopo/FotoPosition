@@ -62,7 +62,8 @@ namespace FotoPosition
                     var indexLastRow = dataGridView1.RowCount - 1;
                     dataGridView1.RowTemplate.Height = 100;
 
-                    var img = new Bitmap(oneFilePath);
+                    //var img = new Bitmap(oneFilePath);
+                    var img = Image.FromFile(oneFilePath);
                     dataGridView1.Rows[indexLastRow].Cells[0].Value = img;
                     dataGridView1.Rows[indexLastRow].Cells[1].Value = Path.GetFileName(oneFilePath);
                 }
