@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
-using System.Globalization;
-using System.Windows.Media.Imaging;
-using FotoPosition.Data;
-using MetadataExtractor;
-using MetadataExtractor.Formats.Exif;
+using System.Windows.Forms;
 
 
 namespace FotoPosition
@@ -28,7 +18,7 @@ namespace FotoPosition
         List<string> ListPathFoto = new List<string>();
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -46,23 +36,20 @@ namespace FotoPosition
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                dataGridView1.Rows.Clear(); // почистим список
-
                 // пути файлов в список PathFoto
+                ListPathFoto.Clear();
                 foreach (string f in ofd.FileNames)
                 {
                     ListPathFoto.Add(f);
                 }
 
-
                 // заполняю DataGrid
+                dataGridView1.Rows.Clear();
                 foreach (var oneFilePath in ListPathFoto)
                 {
                     dataGridView1.Rows.Add();
                     var indexLastRow = dataGridView1.RowCount - 1;
-                    dataGridView1.RowTemplate.Height = 100;
-
-                    //var img = new Bitmap(oneFilePath);
+                    
                     var img = Image.FromFile(oneFilePath);
                     dataGridView1.Rows[indexLastRow].Cells[0].Value = img;
                     dataGridView1.Rows[indexLastRow].Cells[1].Value = Path.GetFileName(oneFilePath);
@@ -70,13 +57,7 @@ namespace FotoPosition
 
 
             }
-        }
-
-        private double GetLatitude(string path)
-        {
-            double latitude;
-            return 0;// latitude;
-        }
+        }      
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -102,22 +83,6 @@ namespace FotoPosition
             toolStripStatusLabel1.Text = location.ToString();
         }
 
-    }
-
-    /*class Bitmap
-    {
-        //public Image image;
-        public double lat;
-        public double lon;
-        public string fileName;
-        public Bitmap(double latitude, double longitude, string fName)
-        {
-            //image = img;
-            lat = latitude;
-            lon = longitude;
-            fileName = fName;
-        }
-    }
-    */
+    }   
 }
 
