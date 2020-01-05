@@ -42,10 +42,13 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -54,7 +57,7 @@
             this.файлToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(946, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1166, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -94,7 +97,7 @@
             this.panel1.Controls.Add(this.listView1);
             this.panel1.Location = new System.Drawing.Point(12, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(308, 349);
+            this.panel1.Size = new System.Drawing.Size(308, 356);
             this.panel1.TabIndex = 1;
             // 
             // listView1
@@ -107,7 +110,7 @@
             this.listView1.LargeImageList = this.imageList1;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(308, 349);
+            this.listView1.Size = new System.Drawing.Size(308, 356);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -127,9 +130,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 379);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 386);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(946, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1166, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -148,7 +151,7 @@
             this.panel2.Controls.Add(this.webBrowser1);
             this.panel2.Location = new System.Drawing.Point(326, 27);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(608, 349);
+            this.panel2.Size = new System.Drawing.Size(257, 356);
             this.panel2.TabIndex = 3;
             // 
             // webBrowser1
@@ -157,14 +160,51 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(604, 345);
+            this.webBrowser1.Size = new System.Drawing.Size(253, 352);
             this.webBrowser1.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.gMapControl1);
+            this.panel3.Location = new System.Drawing.Point(587, 27);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(579, 356);
+            this.panel3.TabIndex = 4;
+            // 
+            // gMapControl1
+            // 
+            this.gMapControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gMapControl1.Bearing = 0F;
+            this.gMapControl1.CanDragMap = true;
+            this.gMapControl1.GrayScaleMode = false;
+            this.gMapControl1.LevelsKeepInMemmory = 5;
+            this.gMapControl1.Location = new System.Drawing.Point(0, 0);
+            this.gMapControl1.MarkersEnabled = true;
+            this.gMapControl1.MaxZoom = 2;
+            this.gMapControl1.MinZoom = 2;
+            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gMapControl1.Name = "gMapControl1";
+            this.gMapControl1.NegativeMode = false;
+            this.gMapControl1.PolygonsEnabled = true;
+            this.gMapControl1.RetryLoadTile = 0;
+            this.gMapControl1.RoutesEnabled = true;
+            this.gMapControl1.ShowTileGridLines = false;
+            this.gMapControl1.Size = new System.Drawing.Size(577, 354);
+            this.gMapControl1.TabIndex = 0;
+            this.gMapControl1.Zoom = 0D;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(946, 401);
+            this.ClientSize = new System.Drawing.Size(1166, 408);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
@@ -181,6 +221,7 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,6 +240,8 @@
         private System.Windows.Forms.ColumnHeader columnFileName;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.Panel panel3;
+        private GMap.NET.WindowsForms.GMapControl gMapControl1;
 
         #endregion
         //>>>>>>> Stashed changes

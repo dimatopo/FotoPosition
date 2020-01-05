@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GMap.NET.Core">
+      <HintPath>..\..\DescMaps\DescMaps\bin\Debug\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms">
+      <HintPath>..\..\DescMaps\DescMaps\bin\Debug\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
     <Reference Include="MetadataExtractor">
       <HintPath>Reference\MetadataExtractor.2.2.0\lib\net45\MetadataExtractor.dll</HintPath>
     </Reference>
