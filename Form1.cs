@@ -30,6 +30,8 @@ namespace FotoPosition
         {
             // внизу, в тулсрипе....
             toolStripStatusLabel1.Text = "";
+
+            webBrowser1.Url = new Uri(@"https://google.com");
         }
         // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
         private void ShowLocationFromImgFile(string imgFilePath)
@@ -37,8 +39,6 @@ namespace FotoPosition
             var location = ExtractorLocation.ExtractLocation(imgFilePath);
             toolStripStatusLabel1.Text = location.ToString();
         }
-
-
 
         #region
         /*
@@ -98,8 +98,6 @@ namespace FotoPosition
         */
         //<<<<<<< Updated upstream
         #endregion
-
-
 
         private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
         {

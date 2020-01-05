@@ -46,7 +46,9 @@ namespace FotoPosition
                 }
             }
 
-            throw new ArgumentException("File must be .jpg or .jpeg", "file");
+          
+                throw new ArgumentException("File must be .jpg or .jpeg", "file");
+            
 
         }
 
