@@ -31,7 +31,7 @@ namespace FotoPosition
             // внизу, в тулсрипе....
             toolStripStatusLabel1.Text = "";
 
-            webBrowser1.Url = new Uri(@"https://google.com");
+            webBrowser1.Url = new Uri("https://google.com/maps");
         }
         // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
         private void ShowLocationFromImgFile(string imgFilePath)
