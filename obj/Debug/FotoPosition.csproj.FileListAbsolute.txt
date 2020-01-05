@@ -25,5 +25,4 @@ F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.csproj.CoreCompileIn
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.csproj.CopyComplete
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.exe
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.pdb
-D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csprojAssemblyReference.cache
-D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csproj.CopyComplete
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csprojResolveAssemblyReference.cache

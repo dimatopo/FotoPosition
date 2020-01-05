@@ -19,12 +19,13 @@ namespace FotoPosition
 {
     public partial class Form1 : Form
     {
+        OpenFileDialog ofd = new OpenFileDialog();
         public Form1()
         {
             InitializeComponent();
         }
-        
-       
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // внизу, в тулсрипе....
@@ -98,11 +99,11 @@ namespace FotoPosition
         //<<<<<<< Updated upstream
         #endregion
 
-        
+
 
         private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            listView1.Items.Clear();
             ofd.Multiselect = true;
             ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
             ofd.Title = "Выберите файлы изображений";
@@ -121,23 +122,30 @@ namespace FotoPosition
                         Console.WriteLine("Что-то пошло не так...!");
                     }
                 }
-
-                listView1.View = View.LargeIcon;
-                listView1.LargeImageList = imageList1;
+                
+                listView1.SmallImageList = imageList1;
 
                 for (int i = 0; i < imageList1.Images.Count; i++)
                 {
-                    ListViewItem item = new ListViewItem();
+                    listView1.Items.Clear();
+                    // в следующей строке {"", означает, что можно в тот же столбец, где и изображение запихать еще и тест
+                    // т.е. если убрать "", то название файла будет писаться в столбец "Фото"
+                    ListViewItem item = new ListViewItem(new string[] { "", Path.GetFileName(ofd.FileNames[i].ToString()) });
                     item.ImageIndex = i;
                     listView1.Items.Add(item);
-                    //listView1.Su
                 }
-
             }
         }
 
         private void ExitToolStripMenuItem_Click_1(object sender, EventArgs e) => this.Close();
-        
+
+        private void ListView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            // узнаю индекс выделенной строки
+            // если выделено несколько строк, то дает индекс последней выделенной строки
+            var ind = listView1.SelectedItems[0];
+            //ShowLocationFromImgFile(imageList1.Images[ind]);
+        }
     }
 }
 
