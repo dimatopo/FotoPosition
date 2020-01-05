@@ -150,8 +150,8 @@ namespace FotoPosition
         {
             // узнаю индекс выделенной строки
             // если выделено несколько строк, то дает индекс последней выделенной строки
-            var ind = listView1.SelectedItems[0];
-            //ShowLocationFromImgFile(imageList1.Images[ind]);
+            var ind = listView1.SelectedIndices[0];
+            ShowLocationFromImgFile(ofd.FileNames[ind].ToString());
         }
     }
 }
