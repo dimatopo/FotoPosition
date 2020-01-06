@@ -61,7 +61,7 @@ namespace FotoPosition
             gMapControl1.MarkersEnabled = true;
 
             //Указываем значение максимального приближения.
-            gMapControl1.MaxZoom = 18;
+            gMapControl1.MaxZoom = 21;
 
             //Указываем значение минимального приближения.
             gMapControl1.MinZoom = 2;
@@ -85,8 +85,12 @@ namespace FotoPosition
             gMapControl1.ShowTileGridLines = false;
 
             //Указываем, что при загрузке карты будет использоваться
-            //18ти кратное приближение.
-            gMapControl1.Zoom = 5;
+            //текущее приближение.
+            gMapControl1.Zoom = 18;
+
+            // загрузка определенного места на карте
+            gMapControl1.Position = new GMap.NET.PointLatLng(55.032399, 82.913128);
+
 
             //Указываем что все края элемента управления
             //закрепляются у краев содержащего его элемента
@@ -94,17 +98,29 @@ namespace FotoPosition
             //соответствующим образом.
             gMapControl1.Dock = DockStyle.Fill;
 
+            //-----Выбор карт------
+
             //Указываем что будем использовать карты Google.
-            gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.GoogleMap;
-            GMap.NET.GMaps.Instance.Mode =
-            GMap.NET.AccessMode.ServerOnly;
+            //gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.GoogleMap;
+            //GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+            //Указываем что будем использовать BingMap – Карты от Microsoft
+            //gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.BingMap;
+
+            // спутниковы вид карты
+            // gMapControl1.MapProvider =GMap.NET.MapProviders.GMapProviders.GoogleSatelliteMap;
+            gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.BingSatelliteMap;
 
             //Если вы используете интернет через прокси сервер,
             //указываем свои учетные данные.
+            /*
             GMap.NET.MapProviders.GMapProvider.WebProxy =
             System.Net.WebRequest.GetSystemWebProxy();
             GMap.NET.MapProviders.GMapProvider.WebProxy.Credentials =
             System.Net.CredentialCache.DefaultCredentials;
+            */
+
+
+
         }
         // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
         private void ShowLocationFromImgFile(string imgFilePath)
