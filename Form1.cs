@@ -131,7 +131,7 @@ namespace FotoPosition
             }
             catch //(Exception ex)
             {
-                MessageBox.Show("У фотографии " +Path.GetFileName(imgFilePath)  +  " отсутствуют координаты геолокации", "Предупреждение");
+                MessageBox.Show("У фотографии " +"\"" + Path.GetFileName(imgFilePath) + "\"" +  " отсутствуют координаты геолокации", "Предупреждение");
             }
 
 
