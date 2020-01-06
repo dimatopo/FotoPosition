@@ -31,15 +31,13 @@ namespace FotoPosition
         {
             InitializeComponent();
         }
-
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
             // внизу, в тулсрипе....
             toolStripStatusLabel1.Text = "";
-            // САЙТ ГУГЛ КАРТ
-            webBrowser1.Url = new Uri("https://google.com/maps");
-
+            
             //Настройки для компонента GMap.
             gMapControl1.Bearing = 0;
 
@@ -125,8 +123,19 @@ namespace FotoPosition
         // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
         private void ShowLocationFromImgFile(string imgFilePath)
         {
-            var location = ExtractorLocation.ExtractLocation(imgFilePath);
-            toolStripStatusLabel1.Text = location.ToString();
+
+            try
+            {
+                var location = ExtractorLocation.ExtractLocation(imgFilePath);
+                toolStripStatusLabel1.Text = location.ToString();
+            }
+            catch //(Exception ex)
+            {
+                MessageBox.Show("У фотографии " +Path.GetFileName(imgFilePath)  +  " отсутствуют координаты геолокации", "Предупреждение");
+            }
+
+
+            
         }
 
         #region
@@ -192,14 +201,14 @@ namespace FotoPosition
         {
             // подчистил элемент listView1
             listView1.Items.Clear();
-            
+
             //подчистил список фоток
             imageList1.Images.Clear();
 
             ofd.Multiselect = true;
             ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
             ofd.Title = "Выберите файлы изображений";
-            
+
             //подчистил список фоток
             imageList1.Images.Clear();
 
@@ -217,7 +226,7 @@ namespace FotoPosition
                         Console.WriteLine("Что-то пошло не так...!");
                     }
                 }
-                
+
                 listView1.SmallImageList = imageList1;
 
                 for (int i = 0; i < imageList1.Images.Count; i++)

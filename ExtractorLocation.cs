@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-
 namespace FotoPosition
 {
     public class ExtractorLocation
@@ -45,11 +44,8 @@ namespace FotoPosition
                     if (image != null) image.Dispose();
                 }
             }
-
-          
-                throw new ArgumentException("File must be .jpg or .jpeg", "file");
-            
-
+            throw new BadImageFormatException("There is no gps data", file);
+            //throw new ArgumentException("File must be .jpg or .jpeg", "file");  было написано это
         }
 
         private static Coordinats DecodeRational64u(PropertyItem propertyItem)
