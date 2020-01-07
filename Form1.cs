@@ -27,17 +27,18 @@ namespace FotoPosition
     public partial class Form1 : Form
     {
         OpenFileDialog ofd = new OpenFileDialog();
+
         public Form1()
         {
             InitializeComponent();
         }
-        
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
             // внизу, в тулсрипе....
             toolStripStatusLabel1.Text = "";
-            
+
             //Настройки для компонента GMap.
             gMapControl1.Bearing = 0;
 
@@ -131,71 +132,9 @@ namespace FotoPosition
             }
             catch //(Exception ex)
             {
-                MessageBox.Show("У фотографии " +"\"" + Path.GetFileName(imgFilePath) + "\"" +  " отсутствуют координаты геолокации", "Предупреждение");
-            }
-
-
-            
-        }
-
-        #region
-        /*
-        // создаю список из путей к фото
-        List<string> ListPathFoto = new List<string>();
-       
-
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-/*
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            //дайт возможность выбора более чем одного фала
-            ofd.Multiselect = true;
-            ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
-            ofd.Title = "Выберите файлы изображений";
-
-
-
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-
-                dataGridView1.Rows.Clear(); // почистим список
-
-                // пути файлов в список PathFoto
-                foreach (string f in ofd.FileNames)
-                {
-                    ListPathFoto.Add(f);
-                }
-
-                // заполняю DataGrid
-                foreach (var oneFilePath in ListPathFoto)
-                {
-                    dataGridView1.Rows.Add();
-                    var indexLastRow = dataGridView1.RowCount - 1;
-                    dataGridView1.RowTemplate.Height = 100;
-
-                    var img = new Bitmap(oneFilePath);
-                    dataGridView1.Rows[indexLastRow].Cells[0].Value = img;
-                    dataGridView1.Rows[indexLastRow].Cells[1].Value = Path.GetFileName(oneFilePath);
-                }
-
-
+                MessageBox.Show("У фотографии " + "\"" + Path.GetFileName(imgFilePath) + "\"" + " отсутствуют координаты геолокации", "Предупреждение");
             }
         }
-
-       
-
-        private void dataGridView1_Click(object sender, EventArgs e)
-        {
-            // узнаю индекс выделенной строки
-            // если выделено несколько строк, то дает индекс последней выделенной строки
-            var ind = dataGridView1.CurrentRow.Index;
-            ShowLocationFromImgFile(ListPathFoto[ind]);
-        }
-        */
-        //<<<<<<< Updated upstream
-        #endregion
 
         private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
         {
@@ -247,7 +186,48 @@ namespace FotoPosition
             // узнаю индекс выделенной строки
             // если выделено несколько строк, то дает индекс последней выделенной строки
             var ind = listView1.SelectedIndices[0];
-            ShowLocationFromImgFile(ofd.FileNames[ind].ToString());
+            ShowLocationFromImgFile(ofd.FileNames[ind]);
+
+            // показываю на карте где была сфотографирована фотка
+            MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[ind]));
+        }
+
+        //================== метод, который тупо определяет координаты ==========================
+        private GeoLocation GetLocation()
+        {
+            var ind = listView1.SelectedIndices[0];
+
+            var gps = ImageMetadataReader.ReadMetadata(ofd.FileNames[ind]).OfType<GpsDirectory>().FirstOrDefault();
+
+            var locationMeta = gps.GetGeoLocation();
+
+            return locationMeta;
+        }
+
+        private void MarkPosition(GeoLocation getLocation, string fileName)
+        {
+            double lat = getLocation.Latitude;
+            double lon = getLocation.Longitude;
+
+            //Создаем новый список маркеров, с указанием компонента
+            //в котором они будут использоваться и названием списка
+            GMapOverlay markersOverlay = new GMapOverlay(gMapControl1, "marker");
+
+            //Инициализация нового ЗЕЛЕНОГО маркера, с указанием его координат
+            GMapMarkerGoogleGreen marker = new GMapMarkerGoogleGreen(new PointLatLng(lat, lon));
+
+            marker.ToolTip = new GMapRoundedToolTip(marker);
+
+            //Текст отображаемый при наведении на маркер
+            marker.ToolTipText = fileName;
+
+            //Добавляем маркер в список маркеров
+            markersOverlay.Markers.Add(marker);
+
+            //Добавляем в компонент, список маркеров
+            gMapControl1.Overlays.Add(markersOverlay);
+
+            gMapControl1.Position = new PointLatLng(lat, lon);
         }
     }
 }
