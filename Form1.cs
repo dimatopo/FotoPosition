@@ -184,8 +184,6 @@ namespace FotoPosition
             }
         }
 
-        private void ExitToolStripMenuItem_Click_1(object sender, EventArgs e) => this.Close();
-
         //================== метод, который тупо определяет координаты ==========================
         private GeoLocation GetLocation()
         {
@@ -223,6 +221,7 @@ namespace FotoPosition
             //Добавляем в компонент, список маркеров
             gMapControl1.Overlays.Add(markersOverlay);
 
+            // Смещаем камеру карты к снимку
             gMapControl1.Position = new PointLatLng(lat, lon);
         }
 
@@ -230,11 +229,90 @@ namespace FotoPosition
         {
             // узнаю индекс выделенной строки
             // если выделено несколько строк, то дает индекс последней выделенной строки
-            var ind = listView1.SelectedIndices[0];
-            ShowLocationFromImgFile(ofd.FileNames[ind]);
+            
+            //не понимаю как это работает, но работант!!!------------------------------------------------------------- 
+            //var ind = listView1.SelectedIndices[0];
+            //ShowLocationFromImgFile(ofd.FileNames[ind]);
 
-            // показываю на карте где была сфотографирована фотка
-            MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[ind]));
+            
+            
+            
+        }
+
+        private void listView1_MouseEnter(object sender, EventArgs e)
+        {
+            listView1.Focus();
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (int i in listView1.SelectedIndices)
+            {
+                ShowLocationFromImgFile(ofd.FileNames[i]);
+                // показываю на карте где была сфотографирована фотка
+                MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[i]));
+            }
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            gMapControl1.Overlays.Clear();
+            //listView1.SelectedItems = false;
+            gMapControl1.ReloadMap();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            // подчистил элемент listView1
+            listView1.Items.Clear();
+
+            //подчистил список фоток
+            imageList1.Images.Clear();
+
+            //подчистил маркеры на карте
+            gMapControl1.Overlays.Clear();
+
+
+            ofd.Multiselect = true;
+            ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
+            ofd.Title = "Выберите файлы изображений";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                // запихнул все фотки в imageList1
+                foreach (string f in ofd.FileNames)
+                {
+                    try
+                    {
+                        imageList1.Images.Add(Image.FromFile(f));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Что-то пошло не так...!");
+                    }
+                }
+
+                listView1.SmallImageList = imageList1;
+
+                for (int i = 0; i < imageList1.Images.Count; i++)
+                {
+                    // в следующей строке {"", означает, что можно в тот же столбец, где и изображение запихать еще и тест
+                    // т.е. если убрать "", то название файла будет писаться в столбец "Фото"
+                    ListViewItem item = new ListViewItem(new string[] { "", Path.GetFileName(ofd.FileNames[i].ToString()) });
+                    item.ImageIndex = i;
+                    listView1.Items.Add(item);
+                    // добавил строку для того, чтобы после загрузки фоток, камера над картой перемещалась в нужный район
+                    //MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[i]));
+                    // gMapControl1.Position = new PointLatLng(GetLocation())
+
+
+                }
+            }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
