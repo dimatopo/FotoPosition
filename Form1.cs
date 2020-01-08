@@ -32,8 +32,7 @@ namespace FotoPosition
         {
             InitializeComponent();
         }
-
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             // внизу, в тулсрипе....
@@ -80,7 +79,7 @@ namespace FotoPosition
             gMapControl1.RoutesEnabled = true;
 
             //Скрываем внешнюю сетку карты
-            //с заголовками.
+            //с заголовками (это касается Tile-ов и их скачки).
             gMapControl1.ShowTileGridLines = false;
 
             //Указываем, что при загрузке карты будет использоваться
@@ -97,8 +96,7 @@ namespace FotoPosition
             //соответствующим образом.
             gMapControl1.Dock = DockStyle.Fill;
 
-            //-----Выбор карт------
-
+            //============ В ы б о р   к а р т ======================================================
             //Указываем что будем использовать карты Google.
             //gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.GoogleMap;
             //GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
@@ -108,6 +106,7 @@ namespace FotoPosition
             // спутниковы вид карты
             // gMapControl1.MapProvider =GMap.NET.MapProviders.GMapProviders.GoogleSatelliteMap;
             gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.BingSatelliteMap;
+            //========================================================================================
 
             //Если вы используете интернет через прокси сервер,
             //указываем свои учетные данные.
@@ -144,12 +143,13 @@ namespace FotoPosition
             //подчистил список фоток
             imageList1.Images.Clear();
 
+            //подчистил маркеры на карте
+            gMapControl1.Overlays.Clear();
+
+
             ofd.Multiselect = true;
             ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
             ofd.Title = "Выберите файлы изображений";
-
-            //подчистил список фоток
-            imageList1.Images.Clear();
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -175,26 +175,22 @@ namespace FotoPosition
                     ListViewItem item = new ListViewItem(new string[] { "", Path.GetFileName(ofd.FileNames[i].ToString()) });
                     item.ImageIndex = i;
                     listView1.Items.Add(item);
+                    // добавил строку для того, чтобы после загрузки фоток, камера над картой перемещалась в нужный район
+                    //MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[i]));
+                   // gMapControl1.Position = new PointLatLng(GetLocation())
+
+
                 }
             }
         }
 
         private void ExitToolStripMenuItem_Click_1(object sender, EventArgs e) => this.Close();
 
-        private void ListView1_MouseClick(object sender, MouseEventArgs e)
-        {
-            // узнаю индекс выделенной строки
-            // если выделено несколько строк, то дает индекс последней выделенной строки
-            var ind = listView1.SelectedIndices[0];
-            ShowLocationFromImgFile(ofd.FileNames[ind]);
-
-            // показываю на карте где была сфотографирована фотка
-            MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[ind]));
-        }
-
         //================== метод, который тупо определяет координаты ==========================
         private GeoLocation GetLocation()
         {
+            // ==============================================================
+            // Надо узнать, как эту строчку писать правильно!!!! на мой взгдяд, не должно быть привязки к конкретному listView1
             var ind = listView1.SelectedIndices[0];
 
             var gps = ImageMetadataReader.ReadMetadata(ofd.FileNames[ind]).OfType<GpsDirectory>().FirstOrDefault();
@@ -228,6 +224,17 @@ namespace FotoPosition
             gMapControl1.Overlays.Add(markersOverlay);
 
             gMapControl1.Position = new PointLatLng(lat, lon);
+        }
+
+        private void listView1_Click(object sender, EventArgs e)
+        {
+            // узнаю индекс выделенной строки
+            // если выделено несколько строк, то дает индекс последней выделенной строки
+            var ind = listView1.SelectedIndices[0];
+            ShowLocationFromImgFile(ofd.FileNames[ind]);
+
+            // показываю на карте где была сфотографирована фотка
+            MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[ind]));
         }
     }
 }
