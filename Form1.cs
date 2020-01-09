@@ -120,6 +120,7 @@ namespace FotoPosition
 
 
         }
+
         // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
         private void ShowLocationFromImgFile(string imgFilePath)
         {
@@ -135,7 +136,7 @@ namespace FotoPosition
             }
         }
 
-        private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
+       /* private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
         {
             // подчистил элемент listView1
             listView1.Items.Clear();
@@ -182,16 +183,16 @@ namespace FotoPosition
 
                 }
             }
-        }
+        }*/
 
         //================== метод, который тупо определяет координаты ==========================
-        private GeoLocation GetLocation()
+        private GeoLocation GetLocation(int i)
         {
             // ==============================================================
             // Надо узнать, как эту строчку писать правильно!!!! на мой взгдяд, не должно быть привязки к конкретному listView1
-            var ind = listView1.SelectedIndices[0];
+            //var ind = listView1.SelectedIndices[0];
 
-            var gps = ImageMetadataReader.ReadMetadata(ofd.FileNames[ind]).OfType<GpsDirectory>().FirstOrDefault();
+            var gps = ImageMetadataReader.ReadMetadata(ofd.FileNames[i]).OfType<GpsDirectory>().FirstOrDefault();
 
             var locationMeta = gps.GetGeoLocation();
 
@@ -250,7 +251,7 @@ namespace FotoPosition
             {
                 ShowLocationFromImgFile(ofd.FileNames[i]);
                 // показываю на карте где была сфотографирована фотка
-                MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[i]));
+                MarkPosition(GetLocation(i), Path.GetFileName(ofd.FileNames[i]));
             }
         }
 
@@ -272,12 +273,18 @@ namespace FotoPosition
             //подчистил маркеры на карте
             gMapControl1.Overlays.Clear();
 
+            //почистил пути файлов в список PathFoto
+            //ListPathFoto.Clear();
+
+
 
             ofd.Multiselect = true;
             ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
             ofd.Title = "Выберите файлы изображений";
 
             if (ofd.ShowDialog() == DialogResult.OK)
+                return;
+
             {
                 // запихнул все фотки в imageList1
                 foreach (string f in ofd.FileNames)
@@ -294,6 +301,12 @@ namespace FotoPosition
 
                 listView1.SmallImageList = imageList1;
 
+
+
+
+
+
+
                 for (int i = 0; i < imageList1.Images.Count; i++)
                 {
                     // в следующей строке {"", означает, что можно в тот же столбец, где и изображение запихать еще и тест
@@ -302,10 +315,8 @@ namespace FotoPosition
                     item.ImageIndex = i;
                     listView1.Items.Add(item);
                     // добавил строку для того, чтобы после загрузки фоток, камера над картой перемещалась в нужный район
-                    //MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[i]));
-                    // gMapControl1.Position = new PointLatLng(GetLocation())
-
-
+                    MarkPosition(GetLocation(i), Path.GetFileName(ofd.FileNames[i]));
+                    gMapControl1.Position = new PointLatLng(GetLocation(i).Latitude, GetLocation(i).Longitude);
                 }
             }
         }
@@ -313,6 +324,11 @@ namespace FotoPosition
         private void toolStripButton_Close_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void gMapControl1_MouseEnter(object sender, EventArgs e)
+        {
+            gMapControl1.Focus();
         }
     }
 }

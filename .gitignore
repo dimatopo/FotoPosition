@@ -2,3 +2,10 @@ bin/
 obj/
 DataDebug/
 .vs/
+obj/Debug/FotoPosition.pdb
+obj/Debug/FotoPosition.exe
+bin/Debug/FotoPosition.pdb
+obj/Debug/FotoPosition.pdb
+obj/Debug/FotoPosition.Form1.resources
+obj/Debug/FotoPosition.exe
+obj/Debug/FotoPosition.csproj.GenerateResource.Cache
