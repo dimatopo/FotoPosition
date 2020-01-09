@@ -25,8 +25,8 @@ F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.csproj.CoreCompileIn
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.csproj.CopyComplete
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.exe
 F:\KosWork\Projects\FotoPositionDima\obj\Debug\FotoPosition.pdb
-D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csprojResolveAssemblyReference.cache
 D:\Projects\FotoPosition\FotoPosition\bin\Debug\GMap.NET.Core.dll
 D:\Projects\FotoPosition\FotoPosition\bin\Debug\GMap.NET.WindowsForms.dll
 D:\Projects\FotoPosition\FotoPosition\bin\Debug\GMap.NET.Core.xml
 D:\Projects\FotoPosition\FotoPosition\bin\Debug\GMap.NET.WindowsForms.xml
+D:\Projects\FotoPosition\FotoPosition\obj\Debug\FotoPosition.csprojResolveAssemblyReference.cache
