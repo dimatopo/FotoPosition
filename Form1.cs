@@ -120,6 +120,7 @@ namespace FotoPosition
 
 
         }
+
         // тут хочу получить координаты одного выделенного снимка в toolStripStatusLabel1
         private void ShowLocationFromImgFile(string imgFilePath)
         {
@@ -135,7 +136,7 @@ namespace FotoPosition
             }
         }
 
-        private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
+       /* private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
         {
             // подчистил элемент listView1
             listView1.Items.Clear();
@@ -182,16 +183,16 @@ namespace FotoPosition
 
                 }
             }
-        }
+        }*/
 
         //================== метод, который тупо определяет координаты ==========================
-        private GeoLocation GetLocation()
+        private GeoLocation GetLocation(int i)
         {
             // ==============================================================
             // Надо узнать, как эту строчку писать правильно!!!! на мой взгдяд, не должно быть привязки к конкретному listView1
-            var ind = listView1.SelectedIndices[0];
+            //var ind = listView1.SelectedIndices[0];
 
-            var gps = ImageMetadataReader.ReadMetadata(ofd.FileNames[ind]).OfType<GpsDirectory>().FirstOrDefault();
+            var gps = ImageMetadataReader.ReadMetadata(ofd.FileNames[i]).OfType<GpsDirectory>().FirstOrDefault();
 
             var locationMeta = gps.GetGeoLocation();
 
@@ -250,7 +251,7 @@ namespace FotoPosition
             {
                 ShowLocationFromImgFile(ofd.FileNames[i]);
                 // показываю на карте где была сфотографирована фотка
-                MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[i]));
+                MarkPosition(GetLocation(i), Path.GetFileName(ofd.FileNames[i]));
             }
         }
 
