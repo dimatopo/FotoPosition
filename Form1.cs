@@ -43,16 +43,18 @@ namespace FotoPosition
 
             }
 
+            imageList1.ImageSize = new Size(32, 32);
             imageList1.Images.Clear();
             foreach (var oneFilePath in ListPathFoto)
             {
                 var image = Image.FromFile(oneFilePath);
-                imageList1.Images.Add(image);
+                Image thumb = image.GetThumbnailImage(32, 32, () => false, IntPtr.Zero);
+                imageList1.Images.Add(thumb);
+                image.Dispose();
             }
-
+            
             listView1.Clear();
-            listView1.View = View.LargeIcon;
-            imageList1.ImageSize = new Size(32, 32);
+            listView1.View = View.LargeIcon;            
             listView1.LargeImageList = imageList1;
             for (int j = 0; j < imageList1.Images.Count; j++)
             {
@@ -60,9 +62,10 @@ namespace FotoPosition
                 {
                     ImageIndex = j
                 };
-                listView1.Items.Add(item);
-                GC.Collect(); // this is magic
+                listView1.Items.Add(item);                
             }
+
+            GC.Collect(); // this is magic
 
             //dataGridView1.Rows.Clear();
             //foreach (var oneFilePath in ListPathFoto)
