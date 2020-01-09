@@ -254,14 +254,14 @@ namespace FotoPosition
             }
         }
 
-        private void toolStripButton3_Click(object sender, EventArgs e)
+        private void toolStripButton_ClearMap_Click(object sender, EventArgs e)
         {
             gMapControl1.Overlays.Clear();
             //listView1.SelectedItems = false;
             gMapControl1.ReloadMap();
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void toolStripButton_OpenFiles_Click(object sender, EventArgs e)
         {
             // подчистил элемент listView1
             listView1.Items.Clear();
@@ -310,7 +310,7 @@ namespace FotoPosition
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void toolStripButton_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
