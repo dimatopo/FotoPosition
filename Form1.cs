@@ -27,12 +27,15 @@ namespace FotoPosition
     public partial class Form1 : Form
     {
         OpenFileDialog ofd = new OpenFileDialog();
+        // создаю список из путей к фото
+        List<string> ListPathFoto = new List<string>();
+
 
         public Form1()
         {
             InitializeComponent();
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // внизу, в тулсрипе....
@@ -136,54 +139,54 @@ namespace FotoPosition
             }
         }
 
-       /* private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
-        {
-            // подчистил элемент listView1
-            listView1.Items.Clear();
+        /* private void OpenToolStripMenuItem_Click_2(object sender, EventArgs e)
+         {
+             // подчистил элемент listView1
+             listView1.Items.Clear();
 
-            //подчистил список фоток
-            imageList1.Images.Clear();
+             //подчистил список фоток
+             imageList1.Images.Clear();
 
-            //подчистил маркеры на карте
-            gMapControl1.Overlays.Clear();
-
-
-            ofd.Multiselect = true;
-            ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
-            ofd.Title = "Выберите файлы изображений";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                // запихнул все фотки в imageList1
-                foreach (string f in ofd.FileNames)
-                {
-                    try
-                    {
-                        imageList1.Images.Add(Image.FromFile(f));
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Что-то пошло не так...!");
-                    }
-                }
-
-                listView1.SmallImageList = imageList1;
-
-                for (int i = 0; i < imageList1.Images.Count; i++)
-                {
-                    // в следующей строке {"", означает, что можно в тот же столбец, где и изображение запихать еще и тест
-                    // т.е. если убрать "", то название файла будет писаться в столбец "Фото"
-                    ListViewItem item = new ListViewItem(new string[] { "", Path.GetFileName(ofd.FileNames[i].ToString()) });
-                    item.ImageIndex = i;
-                    listView1.Items.Add(item);
-                    // добавил строку для того, чтобы после загрузки фоток, камера над картой перемещалась в нужный район
-                    //MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[i]));
-                   // gMapControl1.Position = new PointLatLng(GetLocation())
+             //подчистил маркеры на карте
+             gMapControl1.Overlays.Clear();
 
 
-                }
-            }
-        }*/
+             ofd.Multiselect = true;
+             ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
+             ofd.Title = "Выберите файлы изображений";
+
+             if (ofd.ShowDialog() == DialogResult.OK)
+             {
+                 // запихнул все фотки в imageList1
+                 foreach (string f in ofd.FileNames)
+                 {
+                     try
+                     {
+                         imageList1.Images.Add(Image.FromFile(f));
+                     }
+                     catch
+                     {
+                         Console.WriteLine("Что-то пошло не так...!");
+                     }
+                 }
+
+                 listView1.SmallImageList = imageList1;
+
+                 for (int i = 0; i < imageList1.Images.Count; i++)
+                 {
+                     // в следующей строке {"", означает, что можно в тот же столбец, где и изображение запихать еще и тест
+                     // т.е. если убрать "", то название файла будет писаться в столбец "Фото"
+                     ListViewItem item = new ListViewItem(new string[] { "", Path.GetFileName(ofd.FileNames[i].ToString()) });
+                     item.ImageIndex = i;
+                     listView1.Items.Add(item);
+                     // добавил строку для того, чтобы после загрузки фоток, камера над картой перемещалась в нужный район
+                     //MarkPosition(GetLocation(), Path.GetFileName(ofd.FileNames[i]));
+                    // gMapControl1.Position = new PointLatLng(GetLocation())
+
+
+                 }
+             }
+         }*/
 
         //================== метод, который тупо определяет координаты ==========================
         private GeoLocation GetLocation(int i)
@@ -230,14 +233,14 @@ namespace FotoPosition
         {
             // узнаю индекс выделенной строки
             // если выделено несколько строк, то дает индекс последней выделенной строки
-            
+
             //не понимаю как это работает, но работант!!!------------------------------------------------------------- 
             //var ind = listView1.SelectedIndices[0];
             //ShowLocationFromImgFile(ofd.FileNames[ind]);
 
-            
-            
-            
+
+
+
         }
 
         private void listView1_MouseEnter(object sender, EventArgs e)
@@ -274,50 +277,50 @@ namespace FotoPosition
             gMapControl1.Overlays.Clear();
 
             //почистил пути файлов в список PathFoto
-            //ListPathFoto.Clear();
-
-
+            ListPathFoto.Clear();
 
             ofd.Multiselect = true;
             ofd.Filter = "Файлы изображений (*.jpg, )|*.jpg";
             ofd.Title = "Выберите файлы изображений";
 
             if (ofd.ShowDialog() == DialogResult.OK)
-                return;
-
+            //return;
             {
-                // запихнул все фотки в imageList1
+                // пути файлов в список PathFoto
+                ListPathFoto.Clear();
                 foreach (string f in ofd.FileNames)
                 {
-                    try
-                    {
-                        imageList1.Images.Add(Image.FromFile(f));
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Что-то пошло не так...!");
-                    }
+                    ListPathFoto.Add(f);
+                }
+
+                imageList1.ImageSize = new Size(100, 100);
+
+
+                foreach (var oneFilePath in ListPathFoto)
+                {
+                    var image = Image.FromFile(oneFilePath);
+                    Image thumb = image.GetThumbnailImage(100, 100, () => false, IntPtr.Zero);
+                    imageList1.Images.Add(thumb);
+                    image.Dispose();
                 }
 
                 listView1.SmallImageList = imageList1;
 
-
-
-
-
-
-
-                for (int i = 0; i < imageList1.Images.Count; i++)
+                for (int j = 0; j < imageList1.Images.Count; j++)
                 {
                     // в следующей строке {"", означает, что можно в тот же столбец, где и изображение запихать еще и тест
                     // т.е. если убрать "", то название файла будет писаться в столбец "Фото"
-                    ListViewItem item = new ListViewItem(new string[] { "", Path.GetFileName(ofd.FileNames[i].ToString()) });
-                    item.ImageIndex = i;
+                    ListViewItem item = new ListViewItem(new string[] { "", Path.GetFileName(ofd.FileNames[j].ToString()) })
+                    {
+                        ImageIndex = j
+                    };
                     listView1.Items.Add(item);
-                    // добавил строку для того, чтобы после загрузки фоток, камера над картой перемещалась в нужный район
-                    MarkPosition(GetLocation(i), Path.GetFileName(ofd.FileNames[i]));
-                    gMapControl1.Position = new PointLatLng(GetLocation(i).Latitude, GetLocation(i).Longitude);
+                    // добавил эти 2 строки для того, чтобы после загрузки фоток, камера над картой перемещалась в нужный район
+                    MarkPosition(GetLocation(j), Path.GetFileName(ofd.FileNames[j]));
+                    gMapControl1.Position = new PointLatLng(GetLocation(j).Latitude, GetLocation(j).Longitude);
                 }
+                
+                GC.Collect(); // this is magic
             }
         }
 
