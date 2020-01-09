@@ -42,6 +42,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -107,6 +108,7 @@
             this.col_Picture.HeaderText = "Фото";
             this.col_Picture.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.col_Picture.Name = "col_Picture";
+            this.col_Picture.ReadOnly = true;
             this.col_Picture.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.col_Picture.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.col_Picture.Width = 150;
@@ -128,7 +130,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 379);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 380);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(946, 22);
             this.statusStrip1.TabIndex = 5;
@@ -146,6 +148,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.listView1);
             this.panel1.Controls.Add(this.webBrowser1);
             this.panel1.Location = new System.Drawing.Point(367, 27);
             this.panel1.Name = "panel1";
@@ -161,11 +164,20 @@
             this.webBrowser1.Size = new System.Drawing.Size(574, 344);
             this.webBrowser1.TabIndex = 0;
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(20, 48);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(469, 191);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView1_ItemSelectionChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(946, 401);
+            this.ClientSize = new System.Drawing.Size(946, 402);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.dataGridView1);
@@ -203,6 +215,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 
